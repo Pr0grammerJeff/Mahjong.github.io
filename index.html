@@ -1,7 +1,147 @@
 <!DOCTYPE html>
 <html>
-<body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
-</body>
+  <head>
+    <title>麻雀計算機</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>東圈東局</h1>
+      <div class="function-btn-container">
+        <button class="function-btn">
+          <div>
+            <img
+              src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800px%22%20height%3D%22800px%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%3E%0A%20%20%3Cg%20id%3D%22Edit%20%2F%20Add_Plus_Circle%22%3E%0A%20%20%20%20%3Cpath%20id%3D%22Vector%22%20d%3D%22M8%2012H12M12%2012H16M12%2012V16M12%2012V8M12%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012C21%2016.9706%2016.9706%2021%2012%2021Z%22%20stroke%3D%22%23000000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E"
+              alt="Icon"
+              width="60"
+              height="60"
+            />
+          </div>
+          <span>創建牌局</span>
+        </button>
+        <button class="function-btn">
+          <div>
+            <img
+              src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800px%22%20height%3D%22800px%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%3E%0A%20%20%3Cg%20id%3D%22Edit%20%2F%20Add_Plus_Circle%22%3E%0A%20%20%20%20%3Cpath%20id%3D%22Vector%22%20d%3D%22M8%2012H12M12%2012H16M12%2012V16M12%2012V8M12%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012C21%2016.9706%2016.9706%2021%2012%2021Z%22%20stroke%3D%22%23000000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E"
+              alt="Icon"
+              width="60"
+              height="60"
+            />
+          </div>
+          <span>重設</span>
+        </button>
+        <button class="function-btn">
+          <div>
+            <img
+              src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800px%22%20height%3D%22800px%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%3E%0A%20%20%3Cg%20id%3D%22Edit%20%2F%20Add_Plus_Circle%22%3E%0A%20%20%20%20%3Cpath%20id%3D%22Vector%22%20d%3D%22M8%2012H12M12%2012H16M12%2012V16M12%2012V8M12%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012C21%2016.9706%2016.9706%2021%2012%2021Z%22%20stroke%3D%22%23000000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E"
+              alt="Icon"
+              width="60"
+              height="60"
+            />
+          </div>
+          <span>莊家設定</span>
+        </button>
+        <button class="function-btn">
+          <div>
+            <img
+              src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800px%22%20height%3D%22800px%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%3E%0A%20%20%3Cg%20id%3D%22Edit%20%2F%20Add_Plus_Circle%22%3E%0A%20%20%20%20%3Cpath%20id%3D%22Vector%22%20d%3D%22M8%2012H12M12%2012H16M12%2012V16M12%2012V8M12%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012C21%2016.9706%2016.9706%2021%2012%2021Z%22%20stroke%3D%22%23000000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E"
+              alt="Icon"
+              width="60"
+              height="60"
+            />
+          </div>
+          <span>拉數/投降</span>
+        </button>
+        <button class="function-btn">
+          <div>
+            <img
+              src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800px%22%20height%3D%22800px%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%3E%0A%20%20%3Cg%20id%3D%22Edit%20%2F%20Add_Plus_Circle%22%3E%0A%20%20%20%20%3Cpath%20id%3D%22Vector%22%20d%3D%22M8%2012H12M12%2012H16M12%2012V16M12%2012V8M12%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012C21%2016.9706%2016.9706%2021%2012%2021Z%22%20stroke%3D%22%23000000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E"
+              alt="Icon"
+              width="60"
+              height="60"
+            />
+          </div>
+          <span>更多</span>
+        </button>
+      </div>
+      <div class="function-btn-container">
+        <button class="function-btn">
+          <div>
+            <img
+              src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800px%22%20height%3D%22800px%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%3E%0A%20%20%3Cg%20id%3D%22Edit%20%2F%20Add_Plus_Circle%22%3E%0A%20%20%20%20%3Cpath%20id%3D%22Vector%22%20d%3D%22M8%2012H12M12%2012H16M12%2012V16M12%2012V8M12%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012C21%2016.9706%2016.9706%2021%2012%2021Z%22%20stroke%3D%22%23000000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E"
+              alt="Icon"
+              width="60"
+              height="60"
+            />
+          </div>
+          <span>換人換位</span>
+        </button>
+        <button class="function-btn">
+          <div>
+            <img
+              src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800px%22%20height%3D%22800px%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%3E%0A%20%20%3Cg%20id%3D%22Edit%20%2F%20Add_Plus_Circle%22%3E%0A%20%20%20%20%3Cpath%20id%3D%22Vector%22%20d%3D%22M8%2012H12M12%2012H16M12%2012V16M12%2012V8M12%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012C21%2016.9706%2016.9706%2021%2012%2021Z%22%20stroke%3D%22%23000000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E"
+              alt="Icon"
+              width="60"
+              height="60"
+            />
+          </div>
+          <span>新增玩家</span>
+        </button>
+        <button class="function-btn">
+          <div>
+            <img
+              src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800px%22%20height%3D%22800px%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%3E%0A%20%20%3Cg%20id%3D%22Edit%20%2F%20Add_Plus_Circle%22%3E%0A%20%20%20%20%3Cpath%20id%3D%22Vector%22%20d%3D%22M8%2012H12M12%2012H16M12%2012V16M12%2012V8M12%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012C21%2016.9706%2016.9706%2021%2012%2021Z%22%20stroke%3D%22%23000000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E"
+              alt="Icon"
+              width="60"
+              height="60"
+            />
+          </div>
+          <span>找數</span>
+        </button>
+        <button class="function-btn">
+          <div>
+            <img
+              src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800px%22%20height%3D%22800px%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%3E%0A%20%20%3Cg%20id%3D%22Edit%20%2F%20Add_Plus_Circle%22%3E%0A%20%20%20%20%3Cpath%20id%3D%22Vector%22%20d%3D%22M8%2012H12M12%2012H16M12%2012V16M12%2012V8M12%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012C21%2016.9706%2016.9706%2021%2012%2021Z%22%20stroke%3D%22%23000000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E"
+              alt="Icon"
+              width="60"
+              height="60"
+            />
+          </div>
+          <span>分享賽果</span>
+        </button>
+        <button class="function-btn">
+          <div>
+            <img
+              src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800px%22%20height%3D%22800px%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%3E%0A%20%20%3Cg%20id%3D%22Edit%20%2F%20Add_Plus_Circle%22%3E%0A%20%20%20%20%3Cpath%20id%3D%22Vector%22%20d%3D%22M8%2012H12M12%2012H16M12%2012V16M12%2012V8M12%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012C21%2016.9706%2016.9706%2021%2012%2021Z%22%20stroke%3D%22%23000000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E"
+              alt="Icon"
+              width="60"
+              height="60"
+            />
+          </div>
+          <span>擲骰</span>
+        </button>
+      </div>
+    </header>
+    <main>
+      <div class="main-container">
+        <button class="sit-btn"></button>
+      </div>
+      <div class="main-container">
+        <button class="sit-btn"></button>
+        <button class="skip-btn">
+          <span>流局</span>
+        </button>
+        <button class="sit-btn"></button>
+      </div>
+      <div class="main-container">
+        <button class="sit-btn"></button>
+      </div>
+      <footer>
+        <div class="function-btn-container">
+          <button class="page-btn"><span>戰況</span></button>
+          <button class="page-btn"><span>統計</span></button>
+        </div>
+      </footer>
+    </main>
+  </body>
 </html>

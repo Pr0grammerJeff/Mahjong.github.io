@@ -1,1 +1,90 @@
+body {
+  background-color: #a9d4a7;
+}
+header {
+  display: grid;
+  place-items: center; /* 居中排列元素 */
+  margin: 20px;
+  background-color: #a9d4a7;
+}
 
+H2 {
+  background-color: rgb(247, 208, 137);
+  color: #585747;
+  text-align: bottom;
+  margin: 5px;
+}
+.function-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+span {
+  font-weight: bold;
+  font-size: 28px;
+}
+
+.function-btn {
+  width: 16vw;
+  height: 16vw;
+  flex: 1;
+  padding: 10px;
+  margin: 2px;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  cursor: pointer;
+  text-align: bottom;
+  border-radius: 5px;
+}
+
+main {
+  height: 80vh;
+  margin-bottom: 20px;
+  
+}
+.main-container {
+    height: 80/3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sit-btn {
+    width: 25vw;
+    height: 25vw;
+    border-radius: 5%;
+    margin: 5px;
+    
+}
+.skip-btn{
+    width: 33vw;
+    height: 33vw;
+    border-radius: 5%;
+    margin: 5px;
+    font-size: 50px;
+}
+
+footer{
+    position: fixed;
+    bottom: 50;
+    width: 100%;
+    background-color: #f2f2f2;
+}
+.page-btn{
+    width: 50vw;
+    height: 7.4vh;
+    background-color: rgb(255, 255, 255);
+}
+
+  /* Additional styles for the buttons */
+  .function-btn-container {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+  
+  .page-btn {
+    margin: 5 5px;
+  }
