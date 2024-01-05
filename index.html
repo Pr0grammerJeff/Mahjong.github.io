@@ -124,17 +124,25 @@
     </header>
     <main>
       <div class="main-container">
-        <button class="sit-btn"></button>
+        <button class="sit-btn" onclick="openPopup(1)">
+          <span>Player 1</span>
+        </button>
       </div>
       <div class="main-container">
-        <button class="sit-btn"></button>
+        <button class="sit-btn" onclick="openPopup(2)">
+          <span>Player 2</span>
+        </button>
         <button class="skip-btn">
           <span>流局</span>
         </button>
-        <button class="sit-btn"></button>
+        <button class="sit-btn" onclick="openPopup(3)">
+          <span>Player 3</span>
+        </button>
       </div>
       <div class="main-container">
-        <button class="sit-btn"></button>
+        <button class="sit-btn" onclick="openPopup(4)">
+          <span>Player 4</span>
+        </button>
       </div>
       <footer>
         <div class="function-btn-container">
@@ -145,3 +153,127 @@
     </main>
   </body>
 </html>
+
+<script>
+  function openPopup(playerNumber) {
+    // Create a popup screen element
+    var screen = document.createElement("div");
+    screen.classList.add("popup-screen");
+
+    // Create a popup content container
+    var content = document.createElement("div");
+    content.classList.add("popup-content");
+
+    // Create a title element
+    var title = document.createElement("div");
+    title.classList.add("popup-title");
+    title.textContent = "Please choose an avatar and enter your name";
+    title.style.fontWeight = "bold";
+    title.style.fontSize = "28px";
+
+    // Create a container for avatar selection
+    var avatarContainer = document.createElement("div");
+    avatarContainer.classList.add("avatar-container");
+
+    // Create avatar images
+    for (var i = 1; i <= 8; i++) {
+      var avatar = document.createElement("img");
+      avatar.src = "images/" + i + ".jpeg";
+      avatar.classList.add("avatar-image");
+      avatar.style.objectFit = "cover"; // Ensure the image fills the square container
+      avatar.style.width = "100px"; // Set the width to the desired square size
+      avatar.style.height = "100px"; // Set the height to the desired square size
+      avatar.style.margin = "5px"; // Add some margin around each image
+
+      avatar.addEventListener("click", function () {
+        var selectedAvatar = this.src;
+        var selectedAvatarPreview = document.querySelector(
+          ".selected-avatar-preview"
+        );
+        selectedAvatarPreview.src = selectedAvatar;
+      });
+
+      avatarContainer.appendChild(avatar);
+    }
+
+    // Adjust container width based on window size
+    var containerWidth = Math.min((100 + 10) * 4 + 10, window.innerWidth);
+    avatarContainer.style.width = containerWidth + "px";
+    avatarContainer.style.overflowX = "auto";
+
+    // Create a text input element
+    var input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Enter player name";
+    input.classList.add("popup-input");
+    input.style.textAlign = "center";
+    input.style.height = "90px";
+    input.style.fontWeight = "bold";
+    input.style.fontSize = "28px";
+
+    // Create a submit button
+    var submitBtn = document.createElement("button");
+    submitBtn.innerHTML = "Submit";
+    submitBtn.classList.add("popup-button");
+    submitBtn.style.fontWeight = "bold";
+    submitBtn.style.fontSize = "28px";
+
+    // Create a selected avatar preview element
+    var selectedAvatarPreview = document.createElement("img");
+    selectedAvatarPreview.classList.add("selected-avatar-preview");
+    selectedAvatarPreview.src = "default-avatar.png";
+
+    // Add the elements to the content container
+    content.appendChild(title);
+    content.appendChild(avatarContainer);
+    content.appendChild(selectedAvatarPreview);
+    content.appendChild(input);
+    content.appendChild(submitBtn);
+
+    // Add the content container to the screen
+    screen.appendChild(content);
+
+    // Append the screen to the body
+    document.body.appendChild(screen);
+
+    // Add event listener to the submit button
+    submitBtn.addEventListener("click", function () {
+      var playerName = input.value;
+
+      // Show the player name in the middle of the corresponding button
+      var button = document.querySelector(
+        ".sit-btn:nth-of-type(" + playerNumber + ")"
+      );
+      button.innerHTML = playerName;
+      button.style.fontWeight = "bold";
+      button.style.fontSize = "28px";
+
+      // Show the chosen image above the player name
+      var selectedAvatar = selectedAvatarPreview.src;
+      var avatarImage = document.createElement("img");
+      avatarImage.src = selectedAvatar;
+      avatarImage.style.display = "block";
+      avatarImage.style.margin = "auto";
+      avatarImage.style.width = "200px"; // Set the desired width
+
+      // Apply square cropping
+      avatarImage.style.objectFit = "cover";
+      avatarImage.style.objectPosition = "center";
+
+      // Apply square dimensions
+      avatarImage.style.height = "200px";
+
+      button.prepend(avatarImage);
+
+      // Remove the screen
+      document.body.removeChild(screen);
+    });
+
+    // Add event listener to close the screen when clicking outside of it
+    window.addEventListener("click", function (event) {
+      if (event.target === screen) {
+        document.body.removeChild(screen);
+      }
+    });
+  }
+</script>
