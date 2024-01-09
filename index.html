@@ -20,7 +20,7 @@
           </div>
           <span>重設</span>
         </button>
-        <button class="function-btn">
+        <button class="function-btn" onclick="setHost()">
           <div>
             <img src="images/dealer.png" alt="Dealer" width="60" height="60" />
           </div>
@@ -32,16 +32,16 @@
           </div>
           <span>拉數/投降</span>
         </button>
-        <button class="function-btn">
+        <button class="function-btn" onclick="random_sit(playerName)">
           <div>
             <img
-              src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800px%22%20height%3D%22800px%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%3E%0A%20%20%3Cg%20id%3D%22Edit%20%2F%20Add_Plus_Circle%22%3E%0A%20%20%20%20%3Cpath%20id%3D%22Vector%22%20d%3D%22M8%2012H12M12%2012H16M12%2012V16M12%2012V8M12%2021C7.02944%2021%203%2016.9706%203%2012C3%207.02944%207.02944%203%2012%203C16.9706%203%2021%207.02944%2021%2012C21%2016.9706%2016.9706%2021%2012%2021Z%22%20stroke%3D%22%23000000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E"
-              alt="Icon"
+              src="images/direction.png"
+              alt="Random sit"
               width="60"
               height="60"
             />
           </div>
-          <span>更多</span>
+          <span>自動執位</span>
         </button>
       </div>
       <div class="function-btn-container">
@@ -90,29 +90,77 @@
     <main>
       <div class="main-container">
         <button class="sit-btn" onclick="openPopup(1)">
+          <div>
+            <img
+              src="images/add_player.png"
+              alt="Result"
+              width="60"
+              height="60"
+            />
+          </div>
           <span>Player 1</span>
         </button>
       </div>
       <div class="main-container">
         <button class="sit-btn" onclick="openPopup(2)">
+          <div>
+            <img
+              src="images/add_player.png"
+              alt="Result"
+              width="60"
+              height="60"
+            />
+          </div>
           <span>Player 2</span>
         </button>
         <button class="skip-btn">
           <span>流局</span>
         </button>
         <button class="sit-btn" onclick="openPopup(3)">
+          <div>
+            <img
+              src="images/add_player.png"
+              alt="Result"
+              width="60"
+              height="60"
+            />
+          </div>
           <span>Player 3</span>
         </button>
       </div>
       <div class="main-container">
         <button class="sit-btn" onclick="openPopup(4)">
+          <div>
+            <img
+              src="images/add_player.png"
+              alt="Result"
+              width="60"
+              height="60"
+            />
+          </div>
           <span>Player 4</span>
         </button>
       </div>
       <footer>
         <div class="function-btn-container">
-          <button class="page-btn"><span>戰況</span></button>
-          <button class="page-btn"><span>統計</span></button>
+          <button class="page-btn" onclick="displayForm()">
+            <div>
+              <img src="images/war.png" alt="Result" width="60" height="60" />
+            </div>
+            <span>戰況</span>
+          </button>
+          <button class="page-btn">
+            ]
+            <div>
+              <img
+                src="images/stat.png"
+                alt="Statistic"
+                width="60"
+                height="60"
+              />
+            </div>
+            <span>統計</span>
+          </button>
         </div>
       </footer>
     </main>
@@ -120,7 +168,45 @@
 </html>
 
 <script>
+  var players = [];
+  function setHost() {
+    // Code to open the popup screen
+
+    // Create a select element for the player names
+    var select = document.createElement("select");
+
+    // Add option elements for each player
+    players.forEach(function (player) {
+      var option = document.createElement("option");
+      option.value = player.playerName;
+      option.text = player.playerName;
+      select.appendChild(option);
+    });
+
+    // Add event listener to the select element
+    select.addEventListener("change", function () {
+      var selectedPlayerName = select.value;
+
+      // Update the isHost attribute for all players
+      players.forEach(function (player) {
+        player.isHost = player.playerName === selectedPlayerName;
+      });
+
+      console.log(players); // Output the updated players array
+    });
+
+    // Append the select element to the popup content container
+    var content = document.querySelector(".popup-content");
+    content.appendChild(select);
+  }
+
   function dicing() {
+    // Check if the popup screen is already displayed
+    var popupScreen = document.querySelector(".popup-screen");
+    if (popupScreen) {
+      return; // Exit the function if the popup screen is already displayed
+    }
+
     var diceRoll1 = Math.floor(Math.random() * 6) + 1;
     var diceRoll2 = Math.floor(Math.random() * 6) + 1;
     var diceRoll3 = Math.floor(Math.random() * 6) + 1;
@@ -152,150 +238,38 @@
     sumDisplay.style.textAlign = "center";
     sumDisplay.style.marginBottom = "10px";
 
-    // Create a row for dice roll variables
+    // Create a row for dice roll images
     var diceRow = document.createElement("div");
     diceRow.style.display = "flex";
     diceRow.style.justifyContent = "center";
 
-    // Create dice roll variable elements
-    var diceVariable1 = document.createElement("div");
-    diceVariable1.style.fontWeight = "bold";
-    diceVariable1.style.fontSize = "24px";
-    diceVariable1.style.marginRight = "10px";
+    // Display dice images based on dice roll values
+    var diceImages = [
+      "dice1.png",
+      "dice2.png",
+      "dice3.png",
+      "dice4.png",
+      "dice5.png",
+      "dice6.png",
+    ];
 
-    var diceVariable2 = document.createElement("div");
-    diceVariable2.style.fontWeight = "bold";
-    diceVariable2.style.fontSize = "24px";
-    diceVariable2.style.marginRight = "10px";
+    var img1 = document.createElement("img");
+    img1.src = "images/" + diceImages[diceRoll1 - 1];
+    img1.style.width = "100px";
+    img1.style.height = "100px";
+    diceRow.appendChild(img1);
 
-    var diceVariable3 = document.createElement("div");
-    diceVariable3.style.fontWeight = "bold";
-    diceVariable3.style.fontSize = "24px";
+    var img2 = document.createElement("img");
+    img2.src = "images/" + diceImages[diceRoll2 - 1];
+    img2.style.width = "100px";
+    img2.style.height = "100px";
+    diceRow.appendChild(img2);
 
-    // Set the dice roll variable values
-    diceVariable1.innerHTML = diceRoll1;
-    diceVariable2.innerHTML = diceRoll2;
-    diceVariable3.innerHTML = diceRoll3;
-
-    // Display images based on dice roll values
-    if (diceRoll1 === 1) {
-      var img1 = document.createElement("img");
-      img1.src = "images/dice1.png";
-      img1.style.width = "100px";
-      img1.style.height = "100px";
-      diceVariable1.appendChild(img1);
-    } else if (diceRoll1 === 2) {
-      var img2 = document.createElement("img");
-      img2.src = "images/dice2.png";
-      img2.style.width = "100px";
-      img2.style.height = "100px";
-      diceVariable1.appendChild(img2);
-    } else if (diceRoll1 === 3) {
-      var img3 = document.createElement("img");
-      img3.src = "images/dice3.png";
-      img3.style.width = "100px";
-      img3.style.height = "100px";
-      diceVariable1.appendChild(img3);
-    } else if (diceRoll1 === 4) {
-      var img4 = document.createElement("img");
-      img4.src = "images/dice4.png";
-      img4.style.width = "100px";
-      img4.style.height = "100px";
-      diceVariable1.appendChild(img4);
-    } else if (diceRoll1 === 5) {
-      var img5 = document.createElement("img");
-      img5.src = "images/dice5.png";
-      img5.style.width = "100px";
-      img5.style.height = "100px";
-      diceVariable1.appendChild(img5);
-    } else if (diceRoll1 === 6) {
-      var img6 = document.createElement("img");
-      img6.src = "images/dice6.png";
-      img6.style.width = "100px";
-      img6.style.height = "100px";
-      diceVariable1.appendChild(img6);
-    }
-
-    if (diceRoll2 === 1) {
-      var img1 = document.createElement("img");
-      img1.src = "images/dice1.png";
-      img1.style.width = "100px";
-      img1.style.height = "100px";
-      diceVariable2.appendChild(img1);
-    } else if (diceRoll2 === 2) {
-      var img2 = document.createElement("img");
-      img2.src = "images/dice2.png";
-      img2.style.width = "100px";
-      img2.style.height = "100px";
-      diceVariable2.appendChild(img2);
-    } else if (diceRoll2 === 3) {
-      var img3 = document.createElement("img");
-      img3.src = "images/dice3.png";
-      img3.style.width = "100px";
-      img3.style.height = "100px";
-      diceVariable2.appendChild(img3);
-    } else if (diceRoll2 === 4) {
-      var img4 = document.createElement("img");
-      img4.src = "images/dice4.png";
-      img4.style.width = "100px";
-      img4.style.height = "100px";
-      diceVariable2.appendChild(img4);
-    } else if (diceRoll2 === 5) {
-      var img5 = document.createElement("img");
-      img5.src = "images/dice5.png";
-      img5.style.width = "100px";
-      img5.style.height = "100px";
-      diceVariable2.appendChild(img5);
-    } else if (diceRoll2 === 6) {
-      var img6 = document.createElement("img");
-      img6.src = "images/dice6.png";
-      img6.style.width = "100px";
-      img6.style.height = "100px";
-      diceVariable2.appendChild(img6);
-    }
-
-    if (diceRoll3 === 1) {
-      var img1 = document.createElement("img");
-      img1.src = "images/dice1.png";
-      img1.style.width = "100px";
-      img1.style.height = "100px";
-      diceVariable3.appendChild(img1);
-    } else if (diceRoll3 === 2) {
-      var img2 = document.createElement("img");
-      img2.src = "images/dice2.png";
-      img2.style.width = "100px";
-      img2.style.height = "100px";
-      diceVariable3.appendChild(img2);
-    } else if (diceRoll3 === 3) {
-      var img3 = document.createElement("img");
-      img3.src = "images/dice3.png";
-      img3.style.width = "100px";
-      img3.style.height = "100px";
-      diceVariable3.appendChild(img3);
-    } else if (diceRoll3 === 4) {
-      var img4 = document.createElement("img");
-      img4.src = "images/dice4.png";
-      img4.style.width = "100px";
-      img4.style.height = "100px";
-      diceVariable3.appendChild(img4);
-    } else if (diceRoll3 === 5) {
-      var img5 = document.createElement("img");
-      img5.src = "images/dice5.png";
-      img5.style.width = "100px";
-      img5.style.height = "100px";
-      diceVariable3.appendChild(img5);
-    } else if (diceRoll3 === 6) {
-      var img6 = document.createElement("img");
-      img6.src = "images/dice6.png";
-      img6.style.width = "100px";
-      img6.style.height = "100px";
-      diceVariable3.appendChild(img6);
-    }
-
-    // Append the dice roll variables to the dice row
-    diceRow.appendChild(diceVariable1);
-    diceRow.appendChild(diceVariable2);
-    diceRow.appendChild(diceVariable3);
+    var img3 = document.createElement("img");
+    img3.src = "images/" + diceImages[diceRoll3 - 1];
+    img3.style.width = "100px";
+    img3.style.height = "100px";
+    diceRow.appendChild(img3);
 
     // Append the sum, dice row, and close button to the popup content container
     content.appendChild(closeButton);
@@ -317,6 +291,22 @@
     popupScreen.remove();
   }
 
+  function createPlayer(playerNum, playerName, Avatar, isHost, balance) {
+    var player = {
+      num: playerNum,
+      name: playerName,
+      avatar: Avatar,
+      isHost: isHost,
+      balance: balance,
+    };
+
+    players[playerNum] = player;
+    console.log(players);
+
+    // Perform any additional operations or validations as needed
+
+    return player;
+  }
   function openPopup(playerNumber) {
     // Create a popup screen element
     var screen = document.createElement("div");
@@ -344,7 +334,7 @@
     // Create a title element
     var title = document.createElement("div");
     title.classList.add("popup-title");
-    title.textContent = "Please choose an avatar and enter your name";
+    title.textContent = "請選擇頭像並輸入你的名字";
     title.style.fontWeight = "bold";
     title.style.fontSize = "28px";
 
@@ -381,7 +371,7 @@
     // Create a text input element
     var input = document.createElement("input");
     input.type = "text";
-    input.placeholder = "Enter player name";
+    input.placeholder = "";
     input.classList.add("popup-input");
     input.style.textAlign = "center";
     input.style.height = "90px";
@@ -390,7 +380,7 @@
 
     // Create a submit button
     var submitBtn = document.createElement("button");
-    submitBtn.innerHTML = "Submit";
+    submitBtn.innerHTML = "確定";
     submitBtn.classList.add("popup-button");
     submitBtn.style.fontWeight = "bold";
     submitBtn.style.fontSize = "28px";
@@ -398,7 +388,9 @@
     // Create a selected avatar preview element
     var selectedAvatarPreview = document.createElement("img");
     selectedAvatarPreview.classList.add("selected-avatar-preview");
-    selectedAvatarPreview.src = "default-avatar.png";
+    selectedAvatarPreview.src = "images/default.png";
+    selectedAvatarPreview.style.width = "240px";
+    selectedAvatarPreview.style.height = "240px";
 
     // Add the elements to the content container
     content.appendChild(closeButton);
@@ -416,35 +408,65 @@
 
     // Add event listener to the submit button
     submitBtn.addEventListener("click", function () {
-      var playerName = input.value;
+      if (input.value != "") {
+        var playerName = input.value;
 
-      // Show the player name in the middle of the corresponding button
-      var button = document.querySelector(
-        ".sit-btn:nth-of-type(" + playerNumber + ")"
-      );
-      button.innerHTML = playerName;
-      button.style.fontWeight = "bold";
-      button.style.fontSize = "28px";
+        // Show the player name in the middle of the corresponding button
+        var button = document.querySelector(
+          ".sit-btn:nth-of-type(" + playerNumber + ")"
+        );
+        button.innerHTML = playerName;
+        button.style.fontWeight = "bold";
+        button.style.fontSize = "28px";
 
-      // Show the chosen image above the player name
-      var selectedAvatar = selectedAvatarPreview.src;
-      var avatarImage = document.createElement("img");
-      avatarImage.src = selectedAvatar;
-      avatarImage.style.display = "block";
-      avatarImage.style.margin = "auto";
-      avatarImage.style.width = "200px"; // Set the desired width
+        // Show the chosen image above the player name
+        var selectedAvatar = selectedAvatarPreview.src;
+        var avatarImage = document.createElement("img");
+        avatarImage.src = selectedAvatar;
+        avatarImage.style.display = "block";
+        avatarImage.style.margin = "auto";
+        avatarImage.style.width = "200px"; // Set the desired width
 
-      // Apply square cropping
-      avatarImage.style.objectFit = "cover";
-      avatarImage.style.objectPosition = "center";
+        // Apply square cropping
+        avatarImage.style.objectFit = "cover";
+        avatarImage.style.objectPosition = "center";
 
-      // Apply square dimensions
-      avatarImage.style.height = "200px";
+        // Apply square dimensions
+        avatarImage.style.height = "200px";
 
-      button.prepend(avatarImage);
+        button.prepend(avatarImage);
 
-      // Remove the screen
-      document.body.removeChild(screen);
+        // Create the player object
+        var isHost = false;
+        var balance = 0;
+        var playerNum = playerNumber;
+        var newPlayer = createPlayer(
+          playerNum,
+          playerName,
+          selectedAvatar,
+          isHost,
+          balance
+        );
+        console.log(newPlayer); // Output the created player object
+
+        // Remove the screen
+        document.body.removeChild(screen);
+      } else {
+        // Check if error message already exists
+        var errorMessage = document.querySelector(".error-message");
+        if (!errorMessage) {
+          // Create an error message element
+          errorMessage = document.createElement("div");
+          errorMessage.textContent = "名字不能為空";
+          errorMessage.classList.add("error-message");
+          errorMessage.style.color = "red";
+          errorMessage.style.fontSize = "28px";
+          errorMessage.style.marginTop = "10px";
+
+          // Insert the error message below the input element
+          input.parentNode.insertBefore(errorMessage, input.nextSibling);
+        }
+      }
     });
 
     // Add event listener to close the screen when clicking outside of it
@@ -454,4 +476,87 @@
       }
     });
   }
+  function random_sit(playerName) {
+    var buttons = document.querySelectorAll(".sit-btn");
+    var randomIndices = [];
+
+    // Generate 4 random indices without repetition
+    while (randomIndices.length < 4) {
+      var randomIndex = Math.floor(Math.random() * buttons.length);
+      if (!randomIndices.includes(randomIndex)) {
+        randomIndices.push(randomIndex);
+      }
+    }
+
+    // Assign player name to the randomly selected buttons
+    randomIndices.forEach(function (index) {
+      var button = buttons[index];
+      button.innerHTML = playerName;
+      button.style.fontWeight = "bold";
+      button.style.fontSize = "28px";
+    });
+  }
+
+  function displayForm() {
+    console.log("DisplayForm")
+    // Create a popup screen
+    var popup = document.createElement("div");
+    popup.classList.add("popup");
+
+    // Create a close button
+    var closeButton = document.createElement("button");
+    closeButton.textContent = "Close";
+    closeButton.classList.add("close-button");
+
+    // Append the close button to the popup screen
+    popup.appendChild(closeButton);
+
+    // Create a form element
+    var form = document.createElement("form");
+    form.classList.add("player-form");
+
+    // Create a table element
+    var table = document.createElement("table");
+    table.classList.add("player-table");
+
+    // Create table headers
+    var tableHeaderRow = document.createElement("tr");
+    players.forEach(function (name) {
+      var tableHeader = document.createElement("th");
+      tableHeader.textContent = name;
+      tableHeaderRow.appendChild(tableHeader);
+    });
+    table.appendChild(tableHeaderRow);
+
+    // Create table rows with input fields
+    var tableRow = document.createElement("tr");
+    players.forEach(function (name) {
+      var tableData = document.createElement("td");
+      var input = document.createElement("input");
+      input.type = "text";
+      input.classList.add("player-input");
+      tableData.textContent = name;
+      tableData.appendChild(input);
+      tableRow.appendChild(tableData);
+    });
+    table.appendChild(tableRow);
+
+    // Add the table to the form
+    form.appendChild(table);
+
+    // Append the form to the popup screen
+    popup.appendChild(form);
+
+    // Append the popup screen to the body
+    document.body.appendChild(popup);
+
+    // Add event listener to the close button
+    closeButton.addEventListener("click", function () {
+      document.body.removeChild(popup);
+    });
+  }
+
+  // Add event listener to the "戰況" button
+  var statusButton = document.querySelector(".page-btn");
+  statusButton.addEventListener("click", displayForm);
 </script>
