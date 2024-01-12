@@ -1,10 +1,11 @@
 body {
+  height: 100vh;
   background-color: #a9d4a7;
 }
 header {
+  height: 20vh;
   display: grid;
   place-items: center; /* 居中排列元素 */
-  margin: 20px;
   background-color: #a9d4a7;
 }
 
@@ -25,7 +26,7 @@ span {
   font-size: 28px;
 }
 
-.function-btn {
+.function-btn,.reset-btn {
   width: 16vw;
   height: 16vw;
   flex: 1;
@@ -43,7 +44,6 @@ span {
 main {
   height: 80vh;
   margin-bottom: 20px;
-  
 }
 .main-container {
     height: 80/3vh;
@@ -66,12 +66,13 @@ main {
     font-size: 50px;
 }
 
-footer{
-    position: fixed;
-    bottom: 50;
-    width: 100%;
-    background-color: #f2f2f2;
+footer {
+  
+  bottom: 0;
+  width: 100%;
+  background-color: #f2f2f2;
 }
+
 .page-btn{
     width: 50vw;
     height: 7.4vh;
@@ -92,10 +93,10 @@ footer{
   .popup-screen {
     width: 800px;
     height: 800px;
-    background-color: rgba(255, 192, 203, 0.9);
-    border-radius: 15%;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5%;
     position: fixed;
-    top: 50%;
+    top: 42.5%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 999;
@@ -129,4 +130,7 @@ footer{
     margin: 0 auto;
     text-align: center;
     font-size: 18px;
+  }
+  .innerHTML{
+    font-size: 80px;
   }
