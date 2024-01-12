@@ -8,7 +8,7 @@
     <header>
       <h1>東圈東局</h1>
       <div class="function-btn-container">
-        <button class="function-btn">
+        <button class="reset-btn" onclick="reset()">
           <div>
             <img src="images/start.png" alt="Create" width="60" height="60" />
           </div>
@@ -88,58 +88,60 @@
       </div>
     </header>
     <main>
-      <div class="main-container">
-        <button class="sit-btn" onclick="openPopup(1)">
-          <div>
-            <img
-              src="images/add_player.png"
-              alt="Result"
-              width="60"
-              height="60"
-            />
-          </div>
-          <span>Player 1</span>
-        </button>
-      </div>
-      <div class="main-container">
-        <button class="sit-btn" onclick="openPopup(2)">
-          <div>
-            <img
-              src="images/add_player.png"
-              alt="Result"
-              width="60"
-              height="60"
-            />
-          </div>
-          <span>Player 2</span>
-        </button>
-        <button class="skip-btn">
-          <span>流局</span>
-        </button>
-        <button class="sit-btn" onclick="openPopup(3)">
-          <div>
-            <img
-              src="images/add_player.png"
-              alt="Result"
-              width="60"
-              height="60"
-            />
-          </div>
-          <span>Player 3</span>
-        </button>
-      </div>
-      <div class="main-container">
-        <button class="sit-btn" onclick="openPopup(4)">
-          <div>
-            <img
-              src="images/add_player.png"
-              alt="Result"
-              width="60"
-              height="60"
-            />
-          </div>
-          <span>Player 4</span>
-        </button>
+      <div style="margin: 50px">
+        <div class="main-container">
+          <button class="sit-btn" onclick="openPopup(1)">
+            <div>
+              <img
+                src="images/add_player.png"
+                alt="Result"
+                width="60"
+                height="60"
+              />
+            </div>
+            <span>Player 1</span>
+          </button>
+        </div>
+        <div class="main-container">
+          <button class="sit-btn" onclick="openPopup(2)">
+            <div>
+              <img
+                src="images/add_player.png"
+                alt="Result"
+                width="60"
+                height="60"
+              />
+            </div>
+            <span>Player 2</span>
+          </button>
+          <button class="skip-btn">
+            <span style="font-size: 40px">流局</span>
+          </button>
+          <button class="sit-btn" onclick="openPopup(3)">
+            <div>
+              <img
+                src="images/add_player.png"
+                alt="Result"
+                width="60"
+                height="60"
+              />
+            </div>
+            <span>Player 3</span>
+          </button>
+        </div>
+        <div class="main-container">
+          <button class="sit-btn" onclick="openPopup(4)">
+            <div>
+              <img
+                src="images/add_player.png"
+                alt="Result"
+                width="60"
+                height="60"
+              />
+            </div>
+            <span>Player 4</span>
+          </button>
+        </div>
       </div>
       <footer>
         <div class="function-btn-container">
@@ -150,7 +152,6 @@
             <span>戰況</span>
           </button>
           <button class="page-btn">
-            ]
             <div>
               <img
                 src="images/stat.png"
@@ -169,6 +170,83 @@
 
 <script>
   var players = [];
+
+  function displayPopup() {
+    // Check if the popup screen is already displayed
+    var popupScreen = document.querySelector(".popup-screen");
+    if (popupScreen) {
+      return; // Exit the function if the popup screen is already displayed
+    }
+
+    // Create a popup screen element
+    var screen = document.createElement("div");
+    screen.classList.add("popup-screen");
+
+    // Create a popup content container
+    var content = document.createElement("div");
+    content.classList.add("popup-content");
+
+    // Create a close button
+    var closeButton = document.createElement("button");
+    closeButton.innerHTML = "x";
+    closeButton.classList.add("popup-close-button");
+    closeButton.style.fontWeight = "bold";
+    closeButton.style.fontSize = "30px";
+    closeButton.style.position = "absolute";
+    closeButton.style.top = "10px";
+    closeButton.style.right = "10px";
+
+    content.appendChild(closeButton);
+
+    // Create the text "開始牌局?" at the center
+    var text = document.createElement("p");
+    text.innerHTML = "開始牌局?";
+    text.style.textAlign = "center";
+    text.style.fontSize = "20px";
+    text.style.marginTop = "50px";
+
+    content.appendChild(text);
+
+    // Append the popup content container to the popup screen
+    screen.appendChild(content);
+
+    // Add event listener to the close button
+    closeButton.addEventListener("click", closePopup);
+
+    // Append the popup screen to the body
+    document.body.appendChild(screen);
+  }
+
+  function reset() {
+    // Check if the popup screen is already displayed
+    var popupScreen = document.querySelector(".popup-screen");
+    if (popupScreen) {
+      return; // Exit the function if the popup screen is already displayed
+    }
+
+    // Create a popup screen
+    displayPopup();
+    // Add a "確定" button
+    var confirmButton = document.createElement("button");
+    confirmButton.innerHTML = "確定";
+    confirmButton.style.marginTop = "20px";
+    confirmButton.style.padding = "10px 20px";
+    confirmButton.style.fontSize = "16px";
+    confirmButton.style.backgroundColor = "blue";
+    confirmButton.style.color = "white";
+    confirmButton.style.border = "none";
+    confirmButton.style.cursor = "pointer";
+    confirmButton.style.display = "block";
+    confirmButton.style.margin = "0 auto";
+
+    var popupContent = document.querySelector(".popup-content");
+    popupContent.appendChild(confirmButton);
+  }
+
+  // Add event listener to the button press
+  var button = document.querySelector(".reset-btn");
+  button.addEventListener("click", reset);
+
   function setHost() {
     // Code to open the popup screen
 
@@ -207,9 +285,9 @@
       return; // Exit the function if the popup screen is already displayed
     }
 
-    var diceRoll1 = Math.floor(Math.random() * 6) + 1;
-    var diceRoll2 = Math.floor(Math.random() * 6) + 1;
-    var diceRoll3 = Math.floor(Math.random() * 6) + 1;
+    var diceRoll1 = Math.floor(Math.random() * 1) + 1;
+    var diceRoll2 = Math.floor(Math.random() * 1) + 1;
+    var diceRoll3 = Math.floor(Math.random() * 1) + 1;
     var sum = diceRoll1 + diceRoll2 + diceRoll3;
 
     // Create a popup screen element
@@ -279,6 +357,16 @@
     // Append the popup content container to the popup screen
     screen.appendChild(content);
 
+    if (diceRoll1 === diceRoll2 && diceRoll2 === diceRoll3) {
+      // Create an image element
+      var image = document.createElement("img");
+      image.src = "images/goal.gif";
+      image.style.width="600px"
+      image.style.height="400px"
+      sumDisplay.style.color="red"
+      content.appendChild(image);
+    }
+
     // Add event listener to the close button
     closeButton.addEventListener("click", closePopup);
 
@@ -299,12 +387,9 @@
       isHost: isHost,
       balance: balance,
     };
-
     players[playerNum] = player;
     console.log(players);
-
     // Perform any additional operations or validations as needed
-
     return player;
   }
   function openPopup(playerNumber) {
@@ -498,7 +583,7 @@
   }
 
   function displayForm() {
-    console.log("DisplayForm")
+    console.log("DisplayForm");
     // Create a popup screen
     var popup = document.createElement("div");
     popup.classList.add("popup");
