@@ -18,9 +18,9 @@
           <div>
             <img src="images/reset.png" alt="Reset" width="60" height="60" />
           </div>
-          <span>重設</span>
+          <span>還原</span>
         </button>
-        <button class="function-btn" onclick="setHost()">
+        <button class="setHost-btn" onclick="setHost()">
           <div>
             <img src="images/dealer.png" alt="Dealer" width="60" height="60" />
           </div>
@@ -32,7 +32,7 @@
           </div>
           <span>拉數/投降</span>
         </button>
-        <button class="function-btn" onclick="random_sit(playerName)">
+        <button class="function-btn" onclick="random_sit(players)">
           <div>
             <img
               src="images/direction.png"
@@ -73,7 +73,7 @@
           </div>
           <span>找數</span>
         </button>
-        <button class="function-btn">
+        <button class="share-btn" onclick="share()">
           <div>
             <img src="images/share.png" alt="Share" width="60" height="60" />
           </div>
@@ -90,7 +90,7 @@
     <main>
       <div style="margin: 50px">
         <div class="main-container">
-          <button class="sit-btn" onclick="openPopup(1)">
+          <button class="sit-btn-1" onclick="openPopup(1)">
             <div>
               <img
                 src="images/add_player.png"
@@ -103,7 +103,7 @@
           </button>
         </div>
         <div class="main-container">
-          <button class="sit-btn" onclick="openPopup(2)">
+          <button class="sit-btn-2" onclick="openPopup(2)">
             <div>
               <img
                 src="images/add_player.png"
@@ -114,10 +114,10 @@
             </div>
             <span>Player 2</span>
           </button>
-          <button class="skip-btn">
+          <button class="skip-btn" onclick="AddIsHost()">
             <span style="font-size: 40px">流局</span>
           </button>
-          <button class="sit-btn" onclick="openPopup(3)">
+          <button class="sit-btn-3" onclick="openPopup(3)">
             <div>
               <img
                 src="images/add_player.png"
@@ -130,7 +130,7 @@
           </button>
         </div>
         <div class="main-container">
-          <button class="sit-btn" onclick="openPopup(4)">
+          <button class="sit-btn-4" onclick="openPopup(4)">
             <div>
               <img
                 src="images/add_player.png"
@@ -169,10 +169,12 @@
 </html>
 
 <script>
-  var players = [];
+  var players = new Array(4);
+  players[0] = "";
+  console.log(players);
 
   function displayPopup() {
-    // Check if the popup screen is already displayed
+    // Check if the popup screen  is already displayed
     var popupScreen = document.querySelector(".popup-screen");
     if (popupScreen) {
       return; // Exit the function if the popup screen is already displayed
@@ -198,15 +200,6 @@
 
     content.appendChild(closeButton);
 
-    // Create the text "開始牌局?" at the center
-    var text = document.createElement("p");
-    text.innerHTML = "開始牌局?";
-    text.style.textAlign = "center";
-    text.style.fontSize = "20px";
-    text.style.marginTop = "50px";
-
-    content.appendChild(text);
-
     // Append the popup content container to the popup screen
     screen.appendChild(content);
 
@@ -226,57 +219,34 @@
 
     // Create a popup screen
     displayPopup();
+
+    // Add  "開始牌局" message
+    const message = document.createElement("p");
+    message.innerText = "開始牌局";
+    message.style.fontSize = "80px";
+    message.classList.add("popup-message");
+
     // Add a "確定" button
     var confirmButton = document.createElement("button");
     confirmButton.innerHTML = "確定";
     confirmButton.style.marginTop = "20px";
     confirmButton.style.padding = "10px 20px";
-    confirmButton.style.fontSize = "16px";
-    confirmButton.style.backgroundColor = "blue";
-    confirmButton.style.color = "white";
-    confirmButton.style.border = "none";
+    confirmButton.style.fontSize = "28px";
+    confirmButton.style.backgroundColor = "white";
+    confirmButton.style.color = "black";
+    confirmButton.style.border = "solid";
     confirmButton.style.cursor = "pointer";
     confirmButton.style.display = "block";
     confirmButton.style.margin = "0 auto";
 
     var popupContent = document.querySelector(".popup-content");
+    popupContent.appendChild(message);
     popupContent.appendChild(confirmButton);
   }
 
   // Add event listener to the button press
   var button = document.querySelector(".reset-btn");
   button.addEventListener("click", reset);
-
-  function setHost() {
-    // Code to open the popup screen
-
-    // Create a select element for the player names
-    var select = document.createElement("select");
-
-    // Add option elements for each player
-    players.forEach(function (player) {
-      var option = document.createElement("option");
-      option.value = player.playerName;
-      option.text = player.playerName;
-      select.appendChild(option);
-    });
-
-    // Add event listener to the select element
-    select.addEventListener("change", function () {
-      var selectedPlayerName = select.value;
-
-      // Update the isHost attribute for all players
-      players.forEach(function (player) {
-        player.isHost = player.playerName === selectedPlayerName;
-      });
-
-      console.log(players); // Output the updated players array
-    });
-
-    // Append the select element to the popup content container
-    var content = document.querySelector(".popup-content");
-    content.appendChild(select);
-  }
 
   function dicing() {
     // Check if the popup screen is already displayed
@@ -285,9 +255,10 @@
       return; // Exit the function if the popup screen is already displayed
     }
 
-    var diceRoll1 = Math.floor(Math.random() * 1) + 1;
-    var diceRoll2 = Math.floor(Math.random() * 1) + 1;
-    var diceRoll3 = Math.floor(Math.random() * 1) + 1;
+    var diceRoll1 = Math.floor(Math.random() * 6) + 1;
+    var diceRoll2 = Math.floor(Math.random() * 6) + 1;
+    var diceRoll3 = Math.floor(Math.random() * 6) + 1;
+    
     var sum = diceRoll1 + diceRoll2 + diceRoll3;
 
     // Create a popup screen element
@@ -361,11 +332,23 @@
       // Create an image element
       var image = document.createElement("img");
       image.src = "images/goal.gif";
-      image.style.width="600px"
-      image.style.height="400px"
-      sumDisplay.style.color="red"
+      image.style.width = "600px";
+      image.style.height = "400px";
+      sumDisplay.style.color = "red";
       content.appendChild(image);
     }
+
+    if (diceRoll1 == 1 || diceRoll2 == 1 || diceRoll3 == 1)
+      if (diceRoll1 == 2 || diceRoll2 == 2 || diceRoll3 == 2)
+        if (diceRoll1 == 3 || diceRoll2 == 3 || diceRoll3 == 3) {
+          // Create an image element
+          var image = document.createElement("img");
+          image.src = "images/123.gif";
+          image.style.width = "600px";
+          image.style.height = "400px";
+          sumDisplay.style.color = "red";
+          content.appendChild(image);
+        }
 
     // Add event listener to the close button
     closeButton.addEventListener("click", closePopup);
@@ -388,11 +371,81 @@
       balance: balance,
     };
     players[playerNum] = player;
-    console.log(players);
     // Perform any additional operations or validations as needed
     return player;
   }
+
+  function setHost() {
+    // Check if the popup screen is already displayed
+    var popupScreen = document.querySelector(".popup-screen");
+    if (popupScreen || players.includes(null)) {
+      return; // Exit the function if the popup screen is already displayed
+    }
+
+    // Create a popup screen
+    displayPopup();
+
+    // Create the list selector container
+    const playersListContainer = document.createElement("div");
+    playersListContainer.classList.add("players-list-container");
+
+    // Apply styles to the list container for scrolling
+    playersListContainer.style.overflow = "auto";
+    playersListContainer.style.maxHeight = "400px";
+
+    // Create the list selector
+    const playersList = document.createElement("ul");
+    playersList.classList.add("players-list");
+
+    // Create list items for each player
+    players.forEach((player) => {
+      const listItem = document.createElement("li");
+      listItem.innerText = player.name;
+      listItem.addEventListener("click", () => {
+        players.forEach((p) => {
+          p.isHost = p === player ? 1 : 0;
+        });
+      });
+      playersList.appendChild(listItem);
+    });
+
+    // Add the list selector to the container
+    playersListContainer.appendChild(playersList);
+
+    // Add a "確定" button
+    var confirmButton = document.createElement("button");
+    confirmButton.innerHTML = "確定";
+    confirmButton.style.marginTop = "20px";
+    confirmButton.style.padding = "10px 20px";
+    confirmButton.style.fontSize = "28px";
+    confirmButton.style.backgroundColor = "white";
+    confirmButton.style.color = "black";
+    confirmButton.style.border = "solid";
+    confirmButton.style.cursor = "pointer";
+    confirmButton.style.display = "block";
+    confirmButton.style.margin = "0 auto";
+
+    confirmButton.addEventListener("click", () => {
+      popupScreen.remove(); // Close the popup when the confirm button is clicked
+    });
+
+    // Add the list selecto fr container and confirm button to the popup content
+    var popupContent = document.querySelector(".popup-content");
+    popupContent.appendChild(playersListContainer);
+    popupContent.appendChild(confirmButton);
+  }
+
+  // Add event listener to the button press
+  var button = document.querySelector(".setHost-btn");
+  button.addEventListener("click", setHost);
+
   function openPopup(playerNumber) {
+    // Check if the popup screen is already displayed
+    var popupScreen = document.querySelector(".popup-screen");
+    if (popupScreen) {
+      return; // Exit the function if the popup screen is already displayed
+    }
+
     // Create a popup screen element
     var screen = document.createElement("div");
     screen.classList.add("popup-screen");
@@ -495,11 +548,8 @@
     submitBtn.addEventListener("click", function () {
       if (input.value != "") {
         var playerName = input.value;
-
         // Show the player name in the middle of the corresponding button
-        var button = document.querySelector(
-          ".sit-btn:nth-of-type(" + playerNumber + ")"
-        );
+        var button = document.querySelector(".sit-btn-" + playerNumber);
         button.innerHTML = playerName;
         button.style.fontWeight = "bold";
         button.style.fontSize = "28px";
@@ -522,7 +572,7 @@
         button.prepend(avatarImage);
 
         // Create the player object
-        var isHost = false;
+        var isHost = 0;
         var balance = 0;
         var playerNum = playerNumber;
         var newPlayer = createPlayer(
@@ -532,7 +582,6 @@
           isHost,
           balance
         );
-        console.log(newPlayer); // Output the created player object
 
         // Remove the screen
         document.body.removeChild(screen);
@@ -553,33 +602,14 @@
         }
       }
     });
-
-    // Add event listener to close the screen when clicking outside of it
-    window.addEventListener("click", function (event) {
-      if (event.target === screen) {
-        document.body.removeChild(screen);
-      }
-    });
   }
-  function random_sit(playerName) {
-    var buttons = document.querySelectorAll(".sit-btn");
-    var randomIndices = [];
-
-    // Generate 4 random indices without repetition
-    while (randomIndices.length < 4) {
-      var randomIndex = Math.floor(Math.random() * buttons.length);
-      if (!randomIndices.includes(randomIndex)) {
-        randomIndices.push(randomIndex);
-      }
+  function random_sit(array) {
+    console.log(array);
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
     }
-
-    // Assign player name to the randomly selected buttons
-    randomIndices.forEach(function (index) {
-      var button = buttons[index];
-      button.innerHTML = playerName;
-      button.style.fontWeight = "bold";
-      button.style.fontSize = "28px";
-    });
+    return array;
   }
 
   function displayForm() {
@@ -644,4 +674,141 @@
   // Add event listener to the "戰況" button
   var statusButton = document.querySelector(".page-btn");
   statusButton.addEventListener("click", displayForm);
+
+  function share() {
+    // Check if the popup screen is already displayed
+    var popupScreen = document.querySelector(".popup-screen");
+    if (popupScreen) {
+      return; // Exit the function if the popup screen is already displayed
+    }
+
+    // Create a popup screen element
+    var screen = document.createElement("div");
+    screen.classList.add("popup-screen");
+
+    // Create a popup content container
+    var content = document.createElement("div");
+    content.classList.add("popup-content");
+
+    // Create a close button
+    var closeButton = document.createElement("button");
+    closeButton.innerHTML = "x";
+    closeButton.classList.add("popup-close-button");
+    closeButton.style.fontWeight = "bold";
+    closeButton.style.fontSize = "30px";
+    closeButton.style.position = "absolute";
+    closeButton.style.top = "10px";
+    closeButton.style.right = "10px";
+
+    content.appendChild(closeButton);
+
+    // Create share options
+    var shareOptions = document.createElement("div");
+    shareOptions.classList.add("share-options");
+
+    // Create share buttons
+    var whatsappButton = document.createElement("button");
+    whatsappButton.innerHTML = "Share via WhatsApp";
+    whatsappButton.addEventListener("click", function () {
+      // Handle WhatsApp sharing logic here
+      console.log("Sharing via WhatsApp");
+    });
+
+    var emailButton = document.createElement("button");
+    emailButton.innerHTML = "Share via Email";
+    emailButton.addEventListener("click", function () {
+      // Handle email sharing logic here
+      console.log("Sharing via Email");
+    });
+
+    var messageButton = document.createElement("button");
+    messageButton.innerHTML = "Share via Message";
+    messageButton.addEventListener("click", function () {
+      // Handle messaging sharing logic here
+      console.log("Sharing via Message");
+    });
+
+    shareOptions.appendChild(whatsappButton);
+    shareOptions.appendChild(emailButton);
+    shareOptions.appendChild(messageButton);
+
+    content.appendChild(shareOptions);
+
+    // Append the popup content container to the popup screen
+    screen.appendChild(content);
+
+    // Add event listener to the close button
+    closeButton.addEventListener("click", function () {
+      document.body.removeChild(screen);
+    });
+
+    // Append the popup screen to the body
+    document.body.appendChild(screen);
+  }
+
+  // Add event listener to the share button press
+  var shareButton = document.getElementById("share-btn");
+  shareButton.addEventListener("click", share);
+
+  function AddIsHost() {
+    // Create a popup screen element
+    var screen = document.createElement("div");
+    screen.classList.add("popup-screen");
+
+    // Create a popup content container
+    var content = document.createElement("div");
+    content.classList.add("popup-content");
+
+    // Create a close button
+    var closeButton = document.createElement("button");
+    closeButton.innerHTML = "x";
+    closeButton.classList.add("popup-close-button");
+    closeButton.style.fontWeight = "bold";
+    closeButton.style.fontSize = "30px";
+    closeButton.style.position = "absolute";
+    closeButton.style.top = "10px";
+    closeButton.style.right = "10px";
+
+    // Add event listener to the close button
+    closeButton.addEventListener("click", function () {
+      // Close the popup screen
+      document.body.removeChild(screen);
+    });
+
+    content.appendChild(closeButton);
+
+    // Create confirm message
+    var confirmMessage = document.createElement("p");
+    confirmMessage.innerHTML = "確定流局?";
+    confirmMessage.style.fontSize = "60px";
+    content.appendChild(confirmMessage);
+
+    // Create confirm button
+    var confirmButton = document.createElement("button");
+    confirmButton.innerHTML = "確定";
+    confirmButton.style.fontWeight = "bold";
+    confirmButton.style.fontSize = "28px";
+    confirmButton.addEventListener("click", function () {
+      // Close the popup screen
+      document.body.removeChild(screen);
+
+      // Increase the isHost value by 1 for players whose isHost value is not equal to 0
+      for (var i = 0; i < players.length; i++) {
+        if (players[i].isHost !== 0) {
+          players[i].isHost += 1;
+        }
+      }
+    });
+    content.appendChild(confirmButton);
+
+    // Append the popup content container to the popup screen
+    screen.appendChild(content);
+
+    // Append the popup screen to the body
+    document.body.appendChild(screen);
+  }
+
+  // Add event listener to the skip button press
+  var skipButton = document.getElementById("skip-btn");
+  skipButton.addEventListener("click", AddIsHost);
 </script>
