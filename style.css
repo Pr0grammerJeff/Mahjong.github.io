@@ -26,7 +26,7 @@ span {
   font-size: 28px;
 }
 
-.function-btn,.reset-btn {
+.function-btn,.reset-btn,.share-btn,.setHost-btn {
   width: 16vw;
   height: 16vw;
   flex: 1;
@@ -51,7 +51,7 @@ main {
     justify-content: center;
     align-items: center;
 }
-.sit-btn {
+[class^="sit-btn-"] {
     width: 25vw;
     height: 25vw;
     border-radius: 5%;
@@ -67,7 +67,6 @@ main {
 }
 
 footer {
-  
   bottom: 0;
   width: 100%;
   background-color: #f2f2f2;
@@ -134,3 +133,34 @@ footer {
   .innerHTML{
     font-size: 80px;
   }
+
+  .players-list-container {
+    overflow: auto;
+    max-height: 200px;
+  }
+  
+  .players-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+  
+  .players-list li {
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 40px;
+    
+  }
+  
+  .players-list li:hover {
+    background-color: lightgray;
+  }
+
+  .player-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
