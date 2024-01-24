@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Player Cards</title>
+    <style>
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+  position: relative; /* Add this line */
+}
+
+.card {
+  width: 200px;
+  height: 200px;
+  padding: 20px;
+  background-color: #f2f2f2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.player-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.balance {
+  margin: 5px 0;
+}
+
+.is-host {
+  margin: 0;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-top: 10px;
+}
+
+#flow-button {
+  position: absolute;
+  font-size: 40px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+    </style>
+  </head>
+  <body>
+    <div class="cards-container">
+        <!-- Player cards will be dynamically generated here -->
+        <button id="flow-button" class="card">流局</button>
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+const players = [
+  {
+    playerName: "玩家1",
+    balance: 0,
+    isHost: 0,
+    avatar: "images/add_player.png",
+    row: 1,
+    column: 2,
+  },
+  {
+    playerName: "玩家2",
+    balance: 0,
+    isHost: 0,
+    avatar: "images/add_player.png",
+    row: 2,
+    column: 1,
+  },
+  {
+    playerName: "玩家3",
+    balance: 0,
+    isHost: 0,
+    avatar: "images/add_player.png",
+    row: 3,
+    column: 2,
+  },
+  {
+    playerName: "玩家4",
+    balance: 0,
+    isHost: 1,
+    avatar: "images/add_player.png",
+    row: 2,
+    column: 3,
+  },
+];
+
+// Function to create a player card
+function createPlayerCard(player) {
+  const card = document.createElement("div");
+  card.classList.add("card");
+
+  const playerNameElement = document.createElement("h3");
+  playerNameElement.classList.add("player-name");
+  playerNameElement.textContent = player.playerName;
+
+  const balanceElement = document.createElement("p");
+  balanceElement.classList.add("balance");
+  balanceElement.textContent = `番數：${player.balance}`;
+
+  // Set color based on balance value
+  if (player.balance > 0) {
+    balanceElement.style.color = "green";
+  } else if (player.balance < 0) {
+    balanceElement.style.color = "red";
+  } else {
+    balanceElement.style.color = "black";
+  }
+
+  const isHostElement = document.createElement("p");
+  isHostElement.classList.add("is-host");
+  isHostElement.textContent =
+    player.isHost !== 0 ? "👑莊連" + player.isHost : "💁🏻‍♂️";
+
+  const avatarElement = document.createElement("img");
+  avatarElement.classList.add("avatar");
+  avatarElement.src = player.avatar;
+  avatarElement.alt = `${player.playerName} Avatar`;
+
+  card.appendChild(avatarElement);
+  card.appendChild(playerNameElement);
+  card.appendChild(balanceElement);
+  card.appendChild(isHostElement);
+
+  // Set grid row and column positions
+  card.style.gridRow = player.row;
+  card.style.gridColumn = player.column;
+
+  return card;
+}
+
+// Generate player cards based on the array data
+const cardsContainer = document.querySelector(".cards-container");
+players.forEach((player) => {
+  const playerCard = createPlayerCard(player);
+  cardsContainer.appendChild(playerCard);
+});
+
+// Create the flow button
+const flowButton = document.getElementById("flow-button");
+flowButton.addEventListener("click", handleFlow);
+
+// Event handler for the flow button
+function handleFlow() {
+  alert("流局 button clicked");
+}
+</script>

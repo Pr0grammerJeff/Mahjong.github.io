@@ -2,6 +2,7 @@ body {
   height: 100vh;
   background-color: #a9d4a7;
 }
+
 header {
   height: 20vh;
   display: grid;
@@ -15,6 +16,7 @@ H2 {
   text-align: bottom;
   margin: 5px;
 }
+
 .function-btn-container {
   display: flex;
   justify-content: center;
@@ -26,12 +28,12 @@ span {
   font-size: 28px;
 }
 
-.function-btn,.reset-btn,.share-btn,.setHost-btn {
+.function-btn,.reset-btn,.share-btn,.setHost-btn,.cashout-btn {
   width: 16vw;
   height: 16vw;
   flex: 1;
   padding: 10px;
-  margin: 2px;
+  margin: 5px;
   background-color: rgb(255, 255, 255);
   border: none;
   color: rgb(0, 0, 0);
@@ -42,22 +44,17 @@ span {
 }
 
 main {
-  height: 80vh;
-  margin-bottom: 20px;
+  height: 40vh;
+  padding: 60px;
 }
-.main-container {
-    height: 80/3vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+footer {
+  height: 8.5vh;
+  width: 100%;
+  justify-content: center;
+  background-color: #f2f2f2;
 }
-[class^="sit-btn-"] {
-    width: 25vw;
-    height: 25vw;
-    border-radius: 5%;
-    margin: 5px;
-    
-}
+
 .skip-btn{
     width: 33vw;
     height: 33vw;
@@ -66,11 +63,7 @@ main {
     font-size: 50px;
 }
 
-footer {
-  bottom: 0;
-  width: 100%;
-  background-color: #f2f2f2;
-}
+
 
 .page-btn{
     width: 50vw;
@@ -150,7 +143,6 @@ footer {
     padding: 5px 10px;
     cursor: pointer;
     font-size: 40px;
-    
   }
   
   .players-list li:hover {
@@ -164,3 +156,54 @@ footer {
     margin-right: 10px;
   }
 
+  .cards-container {
+    
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+    position: relative; /* Add this line */
+  }
+  
+  .card {
+    width: 220px;
+    height: 220px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .player-name {
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .balance {
+    margin: 5px 0;
+  }
+  
+  .is-host {
+    margin: 0;
+  }
+  
+  .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-top: 10px;
+  }
+  
+  #flow-button {
+    position: absolute;
+    font-size: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
