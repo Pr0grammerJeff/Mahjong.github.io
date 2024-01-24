@@ -51,16 +51,16 @@
           </div>
           <span>換人換位</span>
         </button>
-        <button class="function-btn">
+        <button class="set_player-btn" onclick="set_player()"  >
           <div>
             <img
               src="images/player.png"
-              alt="Add Player"
+              alt="Set Player"
               width="60"
               height="60"
             />
           </div>
-          <span>新增玩家</span>
+          <span>玩家設定</span>
         </button>
         <button class="cashout-btn" onclick="cashout()">
           <div>
@@ -126,6 +126,15 @@
   var history_2 = [];
   var history_3 = [];
   var history_4 = [];
+  var game_begin= false;
+  var game_mode= ["廣東牌","港式台灣牌"]
+
+  //底
+  var base = 5;
+  //每番
+  var unit = 1;
+  //unit per dollar
+  var unit_per_dollar = 0.4;
 
   rounds = ["東圈", "南圈", "西圈", "北圈"];
   cycles = ["東局", "南局", "西局", "北局"];
@@ -134,8 +143,6 @@
   var status = document.getElementById("game_status");
   status.innerText = rounds[round] + cycles[cycle];
 
-  console.log(rounds);
-  console.log(cycles);
 
   const players = [
   {
@@ -227,7 +234,9 @@ function updatePlayerCards() {
   // Example of updating the elements in a player card
 for(var i=0;i<players.length;i++ ){
 const playerToUpdate = playerCards[i]; // Get the first player card
-playerToUpdate.avatarElement.textContent = players[i].avatar;
+playerToUpdate.avatarElement.src = players[i].avatar;
+
+
 playerToUpdate.playerNameElement.textContent = players[i].playerName;
 playerToUpdate.balanceElement.textContent = "番數："+players[i].balance;
  // Set color based on balance value
@@ -289,11 +298,20 @@ players[i].isHost !== 0 ? "👑莊連" + players[i].isHost : "💁🏻‍♂️"
     // Create a popup screen
     displayPopup();
 
-    // Add  "開始牌局" message
-    const message = document.createElement("p");
-    message.innerText = "開始牌局";
-    message.style.fontSize = "80px";
-    message.classList.add("popup-message");
+// Create a list for selection
+const selectionList = document.createElement("ul");
+  selectionList.classList.add("selection-list");
+
+  // Iterate over the game_mode array and create list items
+  game_mode.forEach((mode) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = mode;
+    listItem.addEventListener("click", () => {
+      handleSelection(mode);
+    });
+    selectionList.appendChild(listItem);
+  });
+
 
     // Add a "確定" button
     var confirmButton = document.createElement("button");
@@ -309,7 +327,7 @@ players[i].isHost !== 0 ? "👑莊連" + players[i].isHost : "💁🏻‍♂️"
     confirmButton.style.margin = "0 auto";
 
     var popupContent = document.querySelector(".popup-content");
-    popupContent.appendChild(message);
+    popupContent.appendChild(selectionList);
     popupContent.appendChild(confirmButton);
   }
 
@@ -884,6 +902,106 @@ updatePlayerCards();
   
 }
 
+function set_player() {
+  displayPopup();
 
+  var title = document.createElement("div");
+  title.classList.add("popup-title");
+  title.textContent = "請選擇頭像並輸入你的名字";
+
+  // Create a dropdown list for player selection
+  var playerDropdown = document.createElement("select");
+  playerDropdown.classList.add("player-dropdown");
+
+  // Add an option for each player in the array
+  players.forEach((player, index) => {
+    var option = document.createElement("option");
+    option.textContent = player.playerName;
+    option.value = index;
+    playerDropdown.appendChild(option);
+  });
+
+  // Create an avatar container
+  var avatarContainer = document.createElement("div");
+  avatarContainer.classList.add("avatar-container");
+
+  // Create avatar images
+  for (var i = 1; i <= 8; i++) {
+    var avatar = document.createElement("img");
+    avatar.src = "images/" + i + ".jpeg";
+    avatar.classList.add("avatar-image");
+    avatar.style.objectFit = "cover"; // Ensure the image fills the square container
+    avatar.style.width = "100px"; // Set the width to the desired square size
+    avatar.style.height = "100px"; // Set the height to the desired square size
+    avatar.style.margin = "5px"; // Add some margin around each image
+
+    avatar.addEventListener("click", function () {
+      var selectedAvatar = this.src;
+      var selectedAvatarPreview = document.querySelector(".selected-avatar-preview");
+      selectedAvatarPreview.src = selectedAvatar;
+    });
+
+    avatarContainer.appendChild(avatar);
+  }
+
+  // Create a selected avatar preview element
+  var selectedAvatarPreview = document.createElement("img");
+  selectedAvatarPreview.classList.add("selected-avatar-preview");
+  selectedAvatarPreview.src = "images/default.png";
+  selectedAvatarPreview.style.width = "240px";
+  selectedAvatarPreview.style.height = "240px";
+
+  // Create an input bar for modifying the playerName
+  var playerNameInput = document.createElement("input");
+  playerNameInput.classList.add("player-name-input");
+  playerNameInput.type = "text";
+  playerNameInput.placeholder = "輸入玩家名稱";
+
+  // Create a confirm button
+  var confirmButton = document.createElement("button");
+  confirmButton.textContent = "確定";
+  confirmButton.classList.add("confirm-button");
+  confirmButton.addEventListener("click", function () {
+    var selectedPlayerIndex = playerDropdown.value;
+    var modifiedPlayerName = playerNameInput.value;
+    
+    if (selectedPlayerIndex >= 0 && selectedPlayerIndex < players.length) {
+      players[selectedPlayerIndex].playerName = modifiedPlayerName;
+      var selectedAvatar = document.querySelector(".selected-avatar-preview").src;
+      
+var imagePath = selectedAvatar.substring(selectedAvatar.lastIndexOf("images/"));
+
+      players[selectedPlayerIndex].avatar = imagePath; // Update the selected player's avatar
+    }
+    handleSelection();
+  });
+
+  // Append the elements to the popup content
+  var popupContent = document.querySelector(".popup-content");
+  popupContent.appendChild(title);
+  popupContent.appendChild(avatarContainer);
+  popupContent.appendChild(selectedAvatarPreview);
+  popupContent.appendChild(playerDropdown);
+  popupContent.appendChild(playerNameInput);
+  popupContent.appendChild(confirmButton);
+}
+
+
+function handleSelection() {
+  // Add your code here to handle the player selection and modified playerName
+  // You can perform any actions based on the selected player and modified playerName
+  // For example, you can update the player's name or perform other logic
+
+  updatePlayerCards();
+  console.log(players);
+
+  // Remove the popup screen
+  document.querySelector(".popup-screen").remove();
+}
+
+
+// Add event listener to the skip button press
+  var set_playerButton = document.getElementById("set_player-btn");
+  set_playerButton.addEventListener("click", set_player);
 
 </script>

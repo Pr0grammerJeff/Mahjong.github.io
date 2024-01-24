@@ -28,7 +28,7 @@ span {
   font-size: 28px;
 }
 
-.function-btn,.reset-btn,.share-btn,.setHost-btn,.cashout-btn {
+.function-btn,.reset-btn,.share-btn,.setHost-btn,.cashout-btn, .set_player-btn{
   width: 16vw;
   height: 16vw;
   flex: 1;
